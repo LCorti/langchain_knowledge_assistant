@@ -1,0 +1,16 @@
+main:
+  persist_path: "data/faiss_vs"
+embeddings:
+  emb_model: "Alibaba-NLP/gte-modernbert-base"
+  device: "cuda"
+  norm_embs: True
+  batch_size: 64
+index_params:
+  distance_strategy: "MAX_INNER_PRODUCT"
+  normalize_L2: false
+retriever_params:
+  search_type: "similarity"
+  k: 100
+  score_threshold: 0.7
+  lambda_mult: 0.5 # default value, 0 (max diversity) -> 1 (min diversity)
+  fetch_k: 40

@@ -1,0 +1,44 @@
+# Keep query provenance aligned with evaluation.yaml to reuse the cached splits.
+seed: 42
+dev_size: 0.3
+cache_dir: data/langchain_queries
+split: test # use test only after tuning is complete
+results_dir: results
+dataset_path: freshstack/queries-oct-2024
+dataset_name: langchain
+dataset_split: test
+
+generator_config: config/generator_config.yaml
+# Match the interactive CLI; RAGPipeline supplies only its first 10 final passages.
+reranker:
+  reranker_model: Alibaba-NLP/gte-reranker-modernbert-base
+  reranker_device: cuda
+  rerank_k: 200
+  top_n: 50
+  reranker_batch_size: 16
+
+similarity:
+  model_id: jinaai/jina-embeddings-v5-text-small
+  device: cuda
+  batch_size: 8
+  max_length: 8192
+  revision: null # pin a reviewed model/code revision for reproducible runs
+
+# Reuses the answer generator's Qwen weights with call-local greedy decoding,
+# thinking disabled, and a separate system prompt. One judgment per nugget.
+judge:
+  max_new_tokens: 512
+  max_retries: 1 # extra attempts for invalid JSON/evidence; failures stop the run
+  invalid_as_absent: true
+
+# Used only with --citations-only --answers <saved answers.jsonl>.
+# Independent prompts share Qwen weights; invalid outputs are recorded without retries.
+# Extraction failures receive zero macro scores; invalid judgments get no support credit.
+# Extraction sees only the answer; support judging sees only each claim's cited sources.
+citations:
+  extractor:
+    max_new_tokens: 4096
+    max_retries: 0
+  judge:
+    max_new_tokens: 1024
+    max_retries: 0

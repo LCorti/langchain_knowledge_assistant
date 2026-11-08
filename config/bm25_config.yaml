@@ -1,0 +1,10 @@
+main:
+  # algorithm: "BM25Okapi"
+  # preprocessing: "default_preprocessing_func"
+  persist_path: "data/bm25_index"
+index_params:
+  k1: 1.5
+  b: 0.75
+  epsilon: 0.25
+retriever_params:
+  k: 100

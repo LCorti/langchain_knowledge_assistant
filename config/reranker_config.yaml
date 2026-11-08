@@ -1,0 +1,5 @@
+reranker_model: Alibaba-NLP/gte-reranker-modernbert-base
+reranker_device: cuda # use cpu if CUDA is unavailable
+rerank_k: 100
+top_n: 50 # keep >= largest evaluation cutoff for a full-depth comparison
+reranker_batch_size: 16

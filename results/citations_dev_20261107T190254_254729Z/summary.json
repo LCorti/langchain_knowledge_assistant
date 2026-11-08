@@ -1,0 +1,25 @@
+{
+  "num_queries": 61,
+  "num_abstained_answers": 4,
+  "num_empty_answers": 0,
+  "counts": {
+    "num_claims": 262,
+    "num_cited_claims": 128,
+    "num_references": 200,
+    "num_valid_references": 200,
+    "num_fully_supported_claims": 42,
+    "num_contradicted_claims": 6
+  },
+  "metrics": {
+    "citation_validity": 0.47540983606557374,
+    "cited_claim_support": 0.17181991864908172,
+    "supported_citation_coverage": 0.10543579826366711,
+    "contradiction_rate": 0.011645731317862465,
+    "citation_validity_micro": 1.0,
+    "cited_claim_support_micro": 0.328125,
+    "supported_citation_coverage_micro": 0.16030534351145037,
+    "contradiction_rate_micro": 0.022900763358778626
+  },
+  "num_extraction_failures": 27,
+  "num_judgment_failures": 39
+}

@@ -1,0 +1,170 @@
+{
+  "split": "dev",
+  "query_ids": [
+    "78052517",
+    "76379440",
+    "78314847",
+    "76546004",
+    "76450328",
+    "76111075",
+    "77018045",
+    "77569490",
+    "78020395",
+    "76716798",
+    "76292501",
+    "78549270",
+    "77520963",
+    "76364591",
+    "77990896",
+    "78631323",
+    "77557699",
+    "76447153",
+    "78396549",
+    "76603417",
+    "77962777",
+    "78503492",
+    "78145421",
+    "77782167",
+    "78188862",
+    "77507520",
+    "76369038",
+    "78599128",
+    "78017053",
+    "78199269",
+    "76997109",
+    "76941870",
+    "78100828",
+    "76621589",
+    "76170406",
+    "77231728",
+    "78023750",
+    "77644218",
+    "78357062",
+    "77365175",
+    "78489329",
+    "76414862",
+    "75927945",
+    "76404464",
+    "78322637",
+    "76906469",
+    "77446419",
+    "76124316",
+    "76645870",
+    "77089465",
+    "77057028",
+    "77407632",
+    "77178370",
+    "76387002",
+    "77715526",
+    "77828572",
+    "78352556",
+    "77345121",
+    "75864073",
+    "77126773",
+    "76400798"
+  ],
+  "settings": {
+    "seed": 42,
+    "dev_size": 0.3,
+    "cache_dir": "/home/lcorti/langchain_knowledge_assistant/data/langchain_queries",
+    "split": "dev",
+    "results_dir": "/home/lcorti/langchain_knowledge_assistant/results",
+    "dataset_path": "freshstack/queries-oct-2024",
+    "dataset_name": "langchain",
+    "dataset_split": "test",
+    "generator_config": "config/generator_config.yaml",
+    "reranker": {
+      "reranker_model": "Alibaba-NLP/gte-reranker-modernbert-base",
+      "reranker_device": "cuda",
+      "rerank_k": 200,
+      "top_n": 50,
+      "reranker_batch_size": 16
+    },
+    "similarity": {
+      "model_id": "jinaai/jina-embeddings-v5-text-small",
+      "device": "cuda",
+      "batch_size": 8,
+      "max_length": 8192,
+      "revision": null
+    },
+    "judge": {
+      "max_new_tokens": 512,
+      "max_retries": 1,
+      "invalid_as_absent": true
+    },
+    "citations": {
+      "extractor": {
+        "max_new_tokens": 4096,
+        "max_retries": 3
+      },
+      "judge": {
+        "max_new_tokens": 1024,
+        "max_retries": 1
+      }
+    }
+  },
+  "generator": {
+    "model_id": "Qwen/Qwen3.5-9B",
+    "enable_thinking": false,
+    "max_new_tokens": 1024,
+    "temperature": 0.7,
+    "top_p": 0.8,
+    "top_k": 20,
+    "system_prompt": "You are a precise, technical knowledge assistant that answers questions about LangChain.\nAnswer the question using only the context below.\nIf the context does not contain the answer, clearly say you do not know instead of guessing.\nCite sources as [n] using the numbering in the context.\nPlace citations immediately after each factual sentence or short claim group,\nincluding code examples. Do not use one trailing citation for a whole paragraph.\nCite multiple passages together, such as [1][3], when they jointly support a claim.\n"
+  },
+  "answers_input": null,
+  "retrieval": {
+    "bm25": {
+      "main": {
+        "persist_path": "/home/lcorti/langchain_knowledge_assistant/data/bm25_index"
+      },
+      "index_params": {
+        "k1": 1.5,
+        "b": 0.75,
+        "epsilon": 0.25
+      },
+      "retriever_params": {
+        "k": 100
+      }
+    },
+    "faiss": {
+      "main": {
+        "persist_path": "/home/lcorti/langchain_knowledge_assistant/data/faiss_vs"
+      },
+      "embeddings": {
+        "emb_model": "Alibaba-NLP/gte-modernbert-base",
+        "device": "cuda",
+        "norm_embs": true,
+        "batch_size": 64
+      },
+      "index_params": {
+        "distance_strategy": "MAX_INNER_PRODUCT",
+        "normalize_L2": false
+      },
+      "retriever_params": {
+        "search_type": "similarity",
+        "k": 100,
+        "score_threshold": 0.7,
+        "lambda_mult": 0.5,
+        "fetch_k": 40
+      }
+    },
+    "retriever": {
+      "mode": "hybrid",
+      "fusion": {
+        "weights": [
+          0.5,
+          0.5
+        ],
+        "c": 60
+      }
+    },
+    "reranker": {
+      "reranker_model": "Alibaba-NLP/gte-reranker-modernbert-base",
+      "reranker_device": "cuda",
+      "rerank_k": 200,
+      "top_n": 50,
+      "reranker_batch_size": 16
+    }
+  }
+}

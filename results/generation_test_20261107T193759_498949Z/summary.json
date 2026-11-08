@@ -1,0 +1,18 @@
+{
+  "num_queries": 142,
+  "num_nuggets": 455,
+  "metrics": {
+    "jina_cosine_similarity": 0.811294419209108,
+    "nugget_coverage": 0.23058350100603622,
+    "nugget_partially_covered_rate": 0.15271629778672033,
+    "nugget_absent_rate": 0.5832494969818913,
+    "nugget_contradicted_rate": 0.03345070422535211,
+    "nugget_coverage_micro": 0.2087912087912088
+  },
+  "nugget_counts": {
+    "fully_covered": 95,
+    "partially_covered": 69,
+    "absent": 278,
+    "contradicted": 13
+  }
+}

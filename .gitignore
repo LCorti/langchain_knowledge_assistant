@@ -1,0 +1,20 @@
+# macOS
+.DS_Store
+
+# env
+.env
+
+# Zed
+.zed
+
+# Python
+__pycache__
+.venv
+*.egg-info
+
+# Hugging Face
+hf_cache
+
+# Artefacts
+*.pdf
+data

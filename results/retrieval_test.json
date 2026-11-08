@@ -1,0 +1,131 @@
+{
+  "split": "test",
+  "num_queries": 142,
+  "cutoffs": [
+    1,
+    3,
+    5,
+    10,
+    20,
+    50
+  ],
+  "settings": {
+    "seed": 42,
+    "dev_size": 0.3,
+    "cache_dir": "/home/lcorti/langchain_knowledge_assistant/data/langchain_queries",
+    "split": "test",
+    "results_dir": "/home/lcorti/langchain_knowledge_assistant/results",
+    "cutoffs": [
+      1,
+      3,
+      5,
+      10,
+      20,
+      50
+    ],
+    "dataset_path": "freshstack/queries-oct-2024",
+    "dataset_name": "langchain",
+    "dataset_split": "test",
+    "retriever": {
+      "mode": "hybrid",
+      "fusion": {
+        "weights": [
+          0.5,
+          0.5
+        ],
+        "c": 60
+      }
+    },
+    "reranker": {
+      "reranker_model": "Alibaba-NLP/gte-reranker-modernbert-base",
+      "reranker_device": "cuda",
+      "rerank_k": 100,
+      "reranker_batch_size": 16
+    }
+  },
+  "retriever": {
+    "bm25": {
+      "main": {
+        "persist_path": "/home/lcorti/langchain_knowledge_assistant/data/bm25_index"
+      },
+      "index_params": {
+        "k1": 1.5,
+        "b": 0.75,
+        "epsilon": 0.25
+      },
+      "retriever_params": {
+        "k": 100
+      }
+    },
+    "faiss": {
+      "main": {
+        "persist_path": "/home/lcorti/langchain_knowledge_assistant/data/faiss_vs"
+      },
+      "embeddings": {
+        "emb_model": "Alibaba-NLP/gte-modernbert-base",
+        "device": "cuda",
+        "norm_embs": true,
+        "batch_size": 64
+      },
+      "index_params": {
+        "distance_strategy": "MAX_INNER_PRODUCT",
+        "normalize_L2": false
+      },
+      "retriever_params": {
+        "search_type": "similarity",
+        "k": 100,
+        "score_threshold": 0.7,
+        "lambda_mult": 0.5,
+        "fetch_k": 40
+      }
+    },
+    "retriever": {
+      "mode": "hybrid",
+      "fusion": {
+        "weights": [
+          0.5,
+          0.5
+        ],
+        "c": 60
+      }
+    },
+    "reranker": {
+      "reranker_model": "Alibaba-NLP/gte-reranker-modernbert-base",
+      "reranker_device": "cuda",
+      "rerank_k": 100,
+      "reranker_batch_size": 16,
+      "top_n": 50
+    }
+  },
+  "metrics": {
+    "Recall@1": 0.018,
+    "Recall@3": 0.04,
+    "Recall@5": 0.0633,
+    "Recall@10": 0.1163,
+    "Recall@20": 0.1928,
+    "Recall@50": 0.3251,
+    "NDCG@1": 0.19014,
+    "NDCG@3": 0.15464,
+    "NDCG@5": 0.14735,
+    "NDCG@10": 0.1467,
+    "NDCG@20": 0.1643,
+    "NDCG@50": 0.21312,
+    "Coverage@1": 0.1079,
+    "Coverage@3": 0.182,
+    "Coverage@5": 0.2508,
+    "Coverage@10": 0.3708,
+    "Coverage@20": 0.5257,
+    "Coverage@50": 0.6697,
+    "alpha-nDCG@1": 0.1243,
+    "alpha-nDCG@3": 0.1296,
+    "alpha-nDCG@5": 0.1487,
+    "alpha-nDCG@10": 0.1849,
+    "alpha-nDCG@20": 0.2281,
+    "Hole@1": 0.2113,
+    "Hole@3": 0.2136,
+    "Hole@5": 0.2423,
+    "Hole@10": 0.2718,
+    "Hole@20": 0.3187,
+    "Hole@50": 0.3601
+  }
+}
